@@ -1,7 +1,8 @@
 package com.n26.statistics.controller;
 
-import java.time.Duration;
-import java.time.ZonedDateTime;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import javax.validation.Valid;
 
@@ -27,40 +28,53 @@ import com.n26.statistics.service.TransactionService;
  */
 @RestController
 @RequestMapping("/transactions")
-public class TransactionController {
+public class TransactionController
+{
 
-	@Autowired
-	private TransactionService transactionService;
+    @Autowired
+    private TransactionService transactionService;
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> createTransaction(@Valid @RequestBody TransactionDTO transactionDTO) {
-		Transaction transactionDO = TransactionMapper.makeTransaction(transactionDTO);
 
-		HttpStatus httpStatus = verifiyTransactionDuration(transactionDO);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> createTransaction(@Valid @RequestBody TransactionDTO transactionDTO)
+    {
+        Transaction transactionDO = TransactionMapper.makeTransaction(transactionDTO);
 
-		try {
-			return new ResponseEntity<>(TransactionMapper.makeTransactionDTO(transactionService.create(transactionDO)),
-					httpStatus);
-		} catch (ConstraintsViolationException e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-	}
+        HttpStatus httpStatus = verifiyTransactionDuration(transactionDO);
 
-	@GetMapping("/all")
-	public ResponseEntity<?> getAllCars() {
-		return ResponseEntity.ok(TransactionMapper.makeTransactionDTOList(transactionService.findAll()));
-	}
+        try
+        {
+            return new ResponseEntity<>(
+                TransactionMapper.makeTransactionDTO(this.transactionService.create(transactionDO)),
+                httpStatus);
+        }
+        catch (ConstraintsViolationException e)
+        {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
-	private HttpStatus verifiyTransactionDuration(Transaction transactionDO) {
-		HttpStatus httpStatus = HttpStatus.CREATED;
-		ZonedDateTime now = ZonedDateTime.now();
-		Duration d = Duration.between(now, transactionDO.getTimestamp());
 
-		if (d.getSeconds() > 60) {
-			httpStatus = HttpStatus.NO_CONTENT;
-		}
-		return httpStatus;
-	}
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllCars()
+    {
+        return ResponseEntity.ok(TransactionMapper.makeTransactionDTOList(this.transactionService.findAll()));
+    }
+
+
+    private HttpStatus verifiyTransactionDuration(Transaction transactionDO)
+    {
+        HttpStatus httpStatus = HttpStatus.CREATED;
+        Instant instant = Instant.now();
+        OffsetDateTime odt = instant.atOffset(ZoneOffset.UTC);
+        OffsetDateTime odtPast = odt.minusSeconds(60l);
+
+        if (transactionDO.getTimestamp() < odtPast.toInstant().toEpochMilli())
+        {
+            httpStatus = HttpStatus.NO_CONTENT;
+        }
+        return httpStatus;
+    }
 
 }
