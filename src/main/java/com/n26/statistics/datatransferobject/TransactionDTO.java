@@ -4,37 +4,50 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TransactionDTO {
+public class TransactionDTO
+{
 
-	@JsonIgnore
-	private Long id;
+    @JsonIgnore
+    private Long id;
 
-	private double amount;
+    private double amount;
 
-	private long timestamp;
+    private long timestamp;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId()
+    {
+        return this.id;
+    }
 
-	public double getAmount() {
-		return amount;
-	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
 
-	public long getTimestamp() {
-		return timestamp;
-	}
 
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
-	}
+    public double getAmount()
+    {
+        return this.amount;
+    }
+
+
+    public void setAmount(double amount)
+    {
+        this.amount = amount;
+    }
+
+
+    public long getTimestamp()
+    {
+        return this.timestamp;
+    }
+
+
+    public void setTimestamp(long timestamp)
+    {
+        this.timestamp = timestamp;
+    }
 
 }
