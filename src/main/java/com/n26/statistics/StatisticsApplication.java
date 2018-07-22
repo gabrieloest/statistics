@@ -2,11 +2,16 @@ package com.n26.statistics;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
-public class StatisticsApplication {
+@EnableAsync
+public class StatisticsApplication
+{
 
-	public static void main(String[] args) {
-		SpringApplication.run(StatisticsApplication.class, args);
-	}
+    public static void main(String[] args)
+    {
+        SpringApplication.run(StatisticsApplication.class, args);
+    }
+
 }

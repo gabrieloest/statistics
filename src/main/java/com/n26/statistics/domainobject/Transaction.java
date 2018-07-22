@@ -77,4 +77,11 @@ public class Transaction
         this.timestamp = timestamp;
     }
 
+
+    @Override
+    public String toString()
+    {
+        return "Transaction [id=" + this.id + ", amount=" + this.amount + ", timestamp=" + this.timestamp + "]";
+    }
+
 }

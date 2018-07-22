@@ -1,5 +1,7 @@
 package com.n26.statistics.datatransferobject;
 
+import javax.validation.constraints.Min;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -12,6 +14,7 @@ public class TransactionDTO
 
     private double amount;
 
+    @Min(value = 0L, message = "The minimum number for timestamp is 0")
     private long timestamp;
 
 

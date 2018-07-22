@@ -50,8 +50,8 @@ public class TransactionController
     }
 
 
-    @GetMapping("/all")
-    public ResponseEntity<?> getAllCars()
+    @GetMapping
+    public ResponseEntity<?> getAllTransactions()
     {
         return ResponseEntity.ok(TransactionMapper.makeTransactionDTOList(this.transactionService.findAll()));
     }

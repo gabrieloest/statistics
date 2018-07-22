@@ -77,4 +77,14 @@ public class TransactionControllerTest
         ResponseEntity<?> controllerTransaction = this.controller.createTransaction(this.transactionPastDTO);
         Assert.assertEquals(HttpStatus.NO_CONTENT, controllerTransaction.getStatusCode());
     }
+
+
+    @Test
+    public void failToCreateCar() throws ConstraintsViolationException
+    {
+        Mockito.when(this.service.create(ArgumentMatchers.any(Transaction.class))).thenThrow(new ConstraintsViolationException("The minimum number for timestamp is 0"));
+        ResponseEntity<?> controllerTransaction = this.controller.createTransaction(this.transactionNewDTO);
+        Assert.assertEquals(HttpStatus.BAD_REQUEST, controllerTransaction.getStatusCode());
+        Assert.assertTrue(((String) controllerTransaction.getBody()).contains("The minimum number for timestamp is 0"));
+    }
 }

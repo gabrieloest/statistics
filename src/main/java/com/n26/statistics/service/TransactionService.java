@@ -5,11 +5,15 @@ import java.util.List;
 import com.n26.statistics.domainobject.Transaction;
 import com.n26.statistics.exception.ConstraintsViolationException;
 
-public interface TransactionService {
+public interface TransactionService
+{
 
-	Transaction create(Transaction transaction) throws ConstraintsViolationException;
+    Transaction create(Transaction transaction) throws ConstraintsViolationException;
 
-	List<Transaction> findAllLast60Seconds();
 
-	List<Transaction> findAll();
+    List<Transaction> findAllLast60Seconds();
+
+
+    List<Transaction> findAll();
+
 }

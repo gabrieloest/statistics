@@ -19,17 +19,20 @@ import com.n26.statistics.service.TransactionService;
  */
 @RestController
 @RequestMapping("/statistics")
-public class StatisticsController {
+public class StatisticsController
+{
 
-	@Autowired
-	private TransactionService transactionService;
+    @Autowired
+    private TransactionService transactionService;
 
-	@GetMapping()
-	public ResponseEntity<?> getStatistics() {
 
-		List<Transaction> findAllLast60Seconds = transactionService.findAllLast60Seconds();
-		return new ResponseEntity<>(StatisticsMapper.makeStatisticDTO(findAllLast60Seconds),
-				HttpStatus.OK);
-	}
+    @GetMapping()
+    public ResponseEntity<?> getStatistics()
+    {
+        List<Transaction> findAllLast60Seconds = this.transactionService.findAllLast60Seconds();
+        return new ResponseEntity<>(
+            StatisticsMapper.makeStatisticDTO(findAllLast60Seconds),
+            HttpStatus.OK);
+    }
 
 }
