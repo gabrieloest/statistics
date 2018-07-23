@@ -2,7 +2,7 @@ package com.n26.statistics.domainobject;
 
 import java.time.ZonedDateTime;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.Min;
 
 public class Transaction
 {
@@ -13,7 +13,7 @@ public class Transaction
 
     private double amount;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Min(value = 0L, message = "The minimum number for timestamp is 0")
     private long timestamp;
 
 

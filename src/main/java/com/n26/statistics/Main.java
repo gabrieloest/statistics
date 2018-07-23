@@ -27,8 +27,11 @@ public class Main
         System.out.println("now: " + odt.toInstant().toEpochMilli());
 
         System.out.println("30sec ago: " + odt.minusSeconds(30l).toInstant().toEpochMilli());
+        System.out.println("31sec ago: " + odt.minusSeconds(31l).toInstant().toEpochMilli());
+        System.out.println("32sec ago: " + odt.minusSeconds(32l).toInstant().toEpochMilli());
+        System.out.println("33sec ago: " + odt.minusSeconds(33l).toInstant().toEpochMilli());
 
-        System.out.println("60sec ago: " + odt.minusSeconds(30l).toInstant().toEpochMilli());
+        System.out.println("60sec ago: " + odt.minusSeconds(60l).toInstant().toEpochMilli());
 
         System.out.println("120sec ago: " + odt.minusSeconds(120l).toInstant().toEpochMilli());
     }
